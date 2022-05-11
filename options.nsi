@@ -18,7 +18,7 @@
 
   ;Define name of the product
   !define PRODUCT "mhddos_proxy_installer"
-  !define PRODUCT_VERSION "1.0.7"
+  !define PRODUCT_VERSION "1.0.8"
   !define UNINSTALLER_NAME "uninstall"
   
   BrandingText "${PRODUCT} ${PRODUCT_VERSION}"
@@ -29,14 +29,9 @@
   
   !define MHDDOS_PROXY_BETA_DIR "$INSTDIR\mhddos_proxy_beta"
   
-  !define MHDDOS_PROXY_ENV "$APPDATA\mhddos_proxy_env"
+  !define PYTHON_DIR "$INSTDIR\python"
   
-  !define PYTHON_DIR "${MHDDOS_PROXY_ENV}\python"
-  
-  !define GIT_DIR "${MHDDOS_PROXY_ENV}\git\git"
-  
-  !define haydamaks_tcp_target "-c http://goals.ddosukraine.com.ua/haydamaky/targets_tcp.txt"
-  !define haydamaks_udp_target "-c http://goals.ddosukraine.com.ua/haydamaky/targets_udp.txt"
+  !define GIT_DIR "$INSTDIR\git\git"
   
   !define proxy_finder_src "https://github.com/porthole-ascend-cinnamon/proxy_finder.git"
   !define proxy_finder_dir "$INSTDIR\proxy_finder"

@@ -88,11 +88,10 @@ Section
 SectionEnd
 
 Section
-  SectionIn RO
-  SetOutPath ${GIT_DIR}
+	SectionIn RO
+	SetOutPath ${GIT_DIR}
 
-  File /r "requirements\git\*"
-  
+	File /r "requirements\git\*"
 SectionEnd
 
 Section
@@ -125,22 +124,11 @@ Section ;RUNNER
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy' goto CLONE_MHDDOS_PROXY)$\r$\n"
   FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY_BETA$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy_beta' goto CLONE_MHDDOS_PROXY_BETA)$\r$\n"
-  FileWrite $9 ":RUN_UNINSTALL$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-uninstall' goto UNINSTALL)$\r$\n"
   
   FileWrite $9 ":run_clone_proxy_finder$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_proxy_finder' goto clone_proxy_finder)$\r$\n"
   FileWrite $9 ":run_proxy_finder$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-proxy_finder' goto proxy_finder)$\r$\n"
-  
-  FileWrite $9 ":run_haydamaks_tcp$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-haydamaks_tcp' goto haydamaks_tcp)$\r$\n"
-  FileWrite $9 ":run_haydamaks_udp$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-haydamaks_udp' goto haydamaks_udp)$\r$\n"
-  FileWrite $9 ":run_haydamaks_tcp_beta$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-haydamaks_tcp_beta' goto haydamaks_tcp_beta)$\r$\n"
-  FileWrite $9 ":run_haydamaks_udp_beta$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-haydamaks_udp_beta' goto haydamaks_udp_beta)$\r$\n"
   
   FileWrite $9 ":MAIN_INFO$\r$\n"
   FileWrite $9 "ECHO.$\r$\n"
@@ -213,54 +201,6 @@ Section ;RUNNER
   FileWrite $9 "ECHO Start Proxy Finder (ItArmy)$\r$\n"
   FileWrite $9 "python finder.py$\r$\n"
   FileWrite $9 "goto END$\r$\n"
-  
-  FileWrite $9 ":haydamaks_tcp$\r$\n"
-  FileWrite $9 "CD ${MHDDOS_PROXY_DIR}$\r$\n"
-  FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack Haydamaks TCP Target$\r$\n"
-  FileWrite $9 "python runner.py ${haydamaks_tcp_target} --debug$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
- 
-  FileWrite $9 ":haydamaks_udp$\r$\n"
-  FileWrite $9 "CD ${MHDDOS_PROXY_DIR}$\r$\n"
-  FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack Haydamaks UDP Target$\r$\n"
-  FileWrite $9 "python runner.py ${haydamaks_udp_target} --debug$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
-  
-  FileWrite $9 ":haydamaks_tcp_beta$\r$\n"
-  FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack Haydamaks TCP Target BETA$\r$\n"
-  FileWrite $9 "python runner.py ${haydamaks_tcp_target} --debug$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
-  
-  FileWrite $9 ":haydamaks_udp_beta$\r$\n"
-  FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack Haydamaks UDP Target BETA$\r$\n"
-  FileWrite $9 "python runner.py ${haydamaks_udp_target} --debug$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
 
   FileWrite $9 ":END$\r$\n"
   FileWrite $9 "EXIT$\r$\n"
@@ -295,7 +235,7 @@ Section	$(inst_itarmy_req) ;"ItArm y of Ukraine Attack"
 SectionEnd
 
 ;ItArmy BETA
-Section	$(inst_itarmy_beta_req) ;"ItArmy of Ukraine Attack BETA"
+Section	/o	$(inst_itarmy_beta_req) ;"ItArmy of Ukraine Attack BETA"
 
   SetOutPath $INSTDIR
   
@@ -317,31 +257,6 @@ Section	/o	$(inst_pf_req)
   CreateShortCut "$DESKTOP\$(inst_pf_req).lnk" "$INSTDIR\runner.bat" "-proxy_finder" "$INSTDIR\itarmy_proxy.ico" 0
 
 SectionEnd
-
-;Haydamaks
-Section	/o	$(inst_haydamaks_req)
-
-  SetOutPath $INSTDIR
-  
-  File "resources\haydamaks.ico"
-  
-  CreateShortCut "$DESKTOP\TCP $(inst_haydamaks_req).lnk" "$INSTDIR\runner.bat" "-haydamaks_tcp" "$INSTDIR\haydamaks.ico" 0
-  CreateShortCut "$DESKTOP\UDP $(inst_haydamaks_req).lnk" "$INSTDIR\runner.bat" "-haydamaks_udp" "$INSTDIR\haydamaks.ico" 0
-
-SectionEnd
-
-;Haydamaks BETA
-Section	/o	$(inst_haydamaks_beta_req)
-
-  SetOutPath $INSTDIR
-  
-  File "resources\haydamaks_beta.ico"
-  
-  CreateShortCut "$DESKTOP\TCP $(inst_haydamaks_beta_req).lnk" "$INSTDIR\runner.bat" "-haydamaks_tcp_beta" "$INSTDIR\haydamaks_beta.ico" 0
-  CreateShortCut "$DESKTOP\UDP $(inst_haydamaks_beta_req).lnk" "$INSTDIR\runner.bat" "-haydamaks_udp_beta" "$INSTDIR\haydamaks_beta.ico" 0
-
-SectionEnd
-
 
 Function .onInit
 

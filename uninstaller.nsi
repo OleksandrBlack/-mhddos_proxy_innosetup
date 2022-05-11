@@ -2,6 +2,10 @@
 
 Section "Uninstall"
   
+  Delete "$DESKTOP\$(inst_itarmy_req).lnk"
+  Delete "$DESKTOP\$(inst_itarmy_beta_req).lnk"
+  Delete "$DESKTOP\$(inst_pf_req).lnk"
+  
   ;Remove all registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
   DeleteRegKey HKLM "Software\${PRODUCT}"
@@ -11,23 +15,9 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\*.*"
   RMDir "$INSTDIR"
 
-  RMDir /r "${MHDDOS_PROXY_ENV}\*.*"
-  RMDir "${MHDDOS_PROXY_ENV}"
-
   ;Delete Start Menu Shortcuts
   Delete "$SMPROGRAMS\${PRODUCT}\*.*"
   RmDir  "$SMPROGRAMS\${PRODUCT}"
-
-  Delete "$DESKTOP\$(inst_itarmy_req).lnk"
-  Delete "$DESKTOP\$(inst_itarmy_beta_req).lnk"
-  
-  Delete "$DESKTOP\$(inst_pf_req).lnk"
-  
-  Delete "$DESKTOP\TCP $(inst_haydamaks_req).lnk"
-  Delete "$DESKTOP\UDP $(inst_haydamaks_req).lnk"
-  Delete "$DESKTOP\TCP $(inst_haydamaks_beta_req).lnk"
-  Delete "$DESKTOP\UDP $(inst_haydamaks_beta_req).lnk"
-
 
 SectionEnd
 
