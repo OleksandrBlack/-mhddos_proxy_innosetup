@@ -2,10 +2,16 @@
 
 Section "Uninstall"
   
-  Delete "$DESKTOP\$(inst_itarmy_req).lnk"
-  Delete "$DESKTOP\$(inst_itarmy_beta_req).lnk"
-  Delete "$DESKTOP\$(inst_pf_req).lnk"
-  
+  Delete "$DESKTOP\Атака ІТ армії України.lnk"
+  Delete "$DESKTOP\ItArmy of Ukraine Attack.lnk"
+  Delete "$DESKTOP\Атака ІТ армии Украины.lnk"
+  Delete "$DESKTOP\Атака ІТ армії України (BETA).lnk"
+  Delete "$DESKTOP\ItArmy of Ukraine Attack (BETA).lnk"
+  Delete "$DESKTOP\Атака ІТ армии Украины (BETA).lnk"
+  Delete "$DESKTOP\Шукач Проксі (Шукати проксі для mhddos_proxy).lnk"
+  Delete "$DESKTOP\Proxy Finder (Find proxies for mhddos_proxy).lnk"
+  Delete "$DESKTOP\Искатель Прокси (Искать прокси для mhddos_proxy).lnk"
+
   ;Remove all registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
   DeleteRegKey HKLM "Software\${PRODUCT}"
@@ -21,14 +27,12 @@ Section "Uninstall"
 
 SectionEnd
 
-
 ;--------------------------------
 ;After Installation Function
 
 Function .onInstSuccess
 
   ;Open 'Thank you for installing' site or something else
-  ;ExecShell "open" "microsoft-edge:${AFTER_INSTALLATION_URL}"
-  ;ExecShell "opennew" "https://t.me/itarmyofukraine2022"
+  ExecShell "open" "https://t.me/itarmyofukraine2022"
 
 FunctionEnd

