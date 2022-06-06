@@ -110,6 +110,7 @@ Section ;RUNNER
   
   FileOpen $9 runner.bat w
   FileWrite $9 "@ECHO off$\r$\n"
+  FileWrite $9 "SET AUTO_MH=1$\r$\n"
   FileWrite $9 "SET PATH=${PYTHON_DIR};${PYTHON_DIR}\Scripts;${GIT_DIR}\git;%PATH%$\r$\n"
   FileWrite $9 "CLS$\r$\n"
   FileWrite $9 "COLOR 0A$\r$\n"
