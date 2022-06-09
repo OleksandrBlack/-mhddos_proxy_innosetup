@@ -119,6 +119,7 @@ Section ;RUNNER
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='' goto MAIN_INFO)$\r$\n"
   FileWrite $9 ":RUN_MHDDOS_PROXY$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy' goto ITARMY)$\r$\n"
+  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_powerfull' goto ITARMY_POWERFULL)$\r$\n"
   ;FileWrite $9 ":RUN_MHDDOS_PROXY_BETA$\r$\n"
   ;FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_beta' goto ITARMY_BETA)$\r$\n"
   FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY$\r$\n"
@@ -169,6 +170,18 @@ Section ;RUNNER
   FileWrite $9 "ECHO OK$\r$\n"
   FileWrite $9 "ECHO Start Attack ItArmy Target$\r$\n"
   FileWrite $9 "python runner.py $(mhddos_lang) --itarmy$\r$\n"
+  FileWrite $9 "goto END$\r$\n"
+  
+  FileWrite $9 ":ITARMY_POWERFULL$\r$\n"
+  FileWrite $9 "CD ${MHDDOS_PROXY_DIR}$\r$\n"
+  FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
+  FileWrite $9 "git pull$\r$\n"
+  FileWrite $9 "ECHO OK$\r$\n"
+  FileWrite $9 "ECHO Cheack requirements$\r$\n"
+  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
+  FileWrite $9 "ECHO OK$\r$\n"
+  FileWrite $9 "ECHO Start Attack ItArmy Target$\r$\n"
+  FileWrite $9 "python runner.py $(mhddos_lang) --itarmy --copies auto$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
   ;FileWrite $9 ":ITARMY_BETA$\r$\n"
@@ -230,8 +243,10 @@ Section	$(inst_itarmy_req) ;"ItArm y of Ukraine Attack"
   SetOutPath $INSTDIR
   
   File "resources\itarmy.ico"
+  File "resources\powerfull.ico"
   
   CreateShortCut "$DESKTOP\$(inst_itarmy_req).lnk" "$INSTDIR\runner.bat" "-itarmy" "$INSTDIR\itarmy.ico" 0
+  CreateShortCut "$DESKTOP\$(inst_itarmy_req)_POWERFULL.lnk" "$INSTDIR\runner.bat" "-itarmy_powerfull" "$INSTDIR\powerfull.ico" 0
 
 SectionEnd
 

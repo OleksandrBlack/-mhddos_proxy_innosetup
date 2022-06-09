@@ -18,7 +18,7 @@
 
   ;Define name of the product
   !define PRODUCT "mhddos_proxy_installer"
-  !define PRODUCT_VERSION "1.1.0"
+  !define PRODUCT_VERSION "1.1.1"
   !define UNINSTALLER_NAME "uninstall"
   
   BrandingText "${PRODUCT} ${PRODUCT_VERSION}"
