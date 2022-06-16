@@ -18,6 +18,7 @@ Section "Uninstall"
   Delete "$DESKTOP\MHDDOS_PROXY_POWERFULL.lnk"
   Delete "$DESKTOP\DB1000N.lnk"
   Delete "$DESKTOP\PROXY_FINDER.lnk"
+  Delete "$DESKTOP\DISTRESS.lnk"
 
   ;Remove all registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
@@ -36,12 +37,21 @@ Section "Uninstall"
   	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_python_in""'
 	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_git_in""'
 	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_db1000n_in""'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_distress_in""'
+
   	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_python_out""'
 	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_git_out""'
 	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_db1000n_out""'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall Delete rule name="itarmy_distress_out""'
+	
 	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Remove-MpPreference -ExclusionProcess "python.exe""'
 	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Remove-MpPreference -ExclusionProcess "git.exe""'
 	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Remove-MpPreference -ExclusionProcess "db1000n.exe""'
+	${If} ${RunningX64}
+		nsExec::Exec 'cmd /c "powershell -exec bypass -Command Remove-MpPreference -ExclusionProcess "distress_x86_64-pc-windows-msvc.exe""'
+	${Else}
+		nsExec::Exec 'cmd /c "powershell -exec bypass -Command Remove-MpPreference -ExclusionProcess "distress_i686-pc-windows-msvc.exe""'
+	${EndIf}
 
 SectionEnd
 

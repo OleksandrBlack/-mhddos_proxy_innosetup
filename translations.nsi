@@ -3,7 +3,6 @@
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "Russian"
 !insertmacro MUI_LANGUAGE "Ukrainian"
-!insertmacro MUI_LANGUAGE "Netherlands"
 
 ;Installer/Uninstaller translations
 !addincludedir translations
@@ -12,4 +11,3 @@
 !include english.nsi
 !include russian.nsi
 !include ukrainian.nsi
-!include netherlands.nsi

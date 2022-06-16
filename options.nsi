@@ -17,8 +17,8 @@
   SetDatablockOptimize ON
 
   ;Define name of the product
-  !define PRODUCT "mhddos_proxy_installer"
-  !define PRODUCT_VERSION "1.1.2"
+  !define PRODUCT "uaitarmy_installer"
+  !define PRODUCT_VERSION "2.0.0"
   !define UNINSTALLER_NAME "uninstall"
   
   BrandingText "${PRODUCT} ${PRODUCT_VERSION}"
@@ -31,6 +31,8 @@
   
   !define DB1000N_DIR "$INSTDIR\db1000n"
   
+  !define DISTRESS_DIR "$INSTDIR\distress"
+  
   !define PYTHON_DIR "$INSTDIR\python"
   
   !define GIT_DIR "$INSTDIR\git\git"
@@ -41,8 +43,8 @@
   ;Installer Version Information
   VIAddVersionKey "ProductName" "${PRODUCT}"
   VIAddVersionKey "CompanyName" "IT ARMY of Ukraine"
-  VIAddVersionKey "LegalCopyright" "Copyright ©2022 MHDDoS Proxy Installer"
-  VIAddVersionKey "FileDescription" "MHDDoS Proxy Installer"
+  VIAddVersionKey "LegalCopyright" "Copyright ©2022 UA ItArmy Installer"
+  VIAddVersionKey "FileDescription" "UA ItArmy Installer"
   VIAddVersionKey "FileVersion" "${PRODUCT_VERSION}"
   VIProductVersion "${PRODUCT_VERSION}.0"
 
