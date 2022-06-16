@@ -9,12 +9,6 @@ LangString inst_uninstall_question ${LANG_NETHERLANDS} "Huidige versie wordt ver
 ;LangString inst_pf_req ${LANG_ENGLISH} "Proxy Finder (Help to find proxies for mhddos_proxy)"
 LangString inst_pf_req ${LANG_NETHERLANDS} "Proxy Finder (vind proxy's voor mhddos_proxy)"
 
-;LangString inst_itarmy_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack"
-LangString inst_itarmy_req ${LANG_NETHERLANDS} "ItArmy of Ukraine Attack"
-
-;LangString inst_itarmy_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack (BETA)"
-;LangString inst_itarmy_beta_req ${LANG_NETHERLANDS} "ItArmy of Ukraine Attack (BETA)"
-
 LangString inf_title ${LANG_NETHERLANDS} "Afhankelijkheden controleren"
 LangString inf_subtitle ${LANG_NETHERLANDS} "Lezen voor installatie"
 LangString inf_button ${LANG_NETHERLANDS} "Downloaden"

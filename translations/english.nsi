@@ -9,12 +9,6 @@ LangString inst_uninstall_question ${LANG_ENGLISH} "Current version will be unin
 ;LangString inst_pf_req ${LANG_ENGLISH} "Proxy Finder (Help to find proxies for mhddos_proxy)"
 LangString inst_pf_req ${LANG_ENGLISH} "Proxy Finder (Find proxies for mhddos_proxy)"
 
-;LangString inst_itarmy_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack"
-LangString inst_itarmy_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack"
-
-;LangString inst_itarmy_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack (BETA)"
-;LangString inst_itarmy_beta_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack (BETA)"
-
 LangString inf_title ${LANG_ENGLISH} "Checking dependencies"
 LangString inf_subtitle ${LANG_ENGLISH} "Read Before Installation"
 LangString inf_button ${LANG_ENGLISH} "Download"

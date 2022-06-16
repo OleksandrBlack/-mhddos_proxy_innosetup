@@ -18,7 +18,7 @@
 
   ;Define name of the product
   !define PRODUCT "mhddos_proxy_installer"
-  !define PRODUCT_VERSION "1.1.1"
+  !define PRODUCT_VERSION "1.1.2"
   !define UNINSTALLER_NAME "uninstall"
   
   BrandingText "${PRODUCT} ${PRODUCT_VERSION}"
@@ -27,7 +27,9 @@
   
   !define MHDDOS_PROXY_DIR "$INSTDIR\mhddos_proxy"
   
-  !define MHDDOS_PROXY_BETA_DIR "$INSTDIR\mhddos_proxy_beta"
+  ;!define MHDDOS_PROXY_BETA_DIR "$INSTDIR\mhddos_proxy_beta"
+  
+  !define DB1000N_DIR "$INSTDIR\db1000n"
   
   !define PYTHON_DIR "$INSTDIR\python"
   
