@@ -253,6 +253,7 @@ Section	"mhddos_proxy";INSTALL MHDDOS_PROXY
   
   File "resources\itarmy.ico"
   File "resources\powerfull.ico"
+  File "resources\itarmy_d1000n.ico"
   
   CreateShortCut "$DESKTOP\MHDDOS_PROXY.lnk" "$INSTDIR\runner.bat" "-itarmy" "$INSTDIR\itarmy.ico" 0
   CreateShortCut "$DESKTOP\MHDDOS_PROXY_POWERFULL.lnk" "$INSTDIR\runner.bat" "-itarmy_powerfull" "$INSTDIR\powerfull.ico" 0
