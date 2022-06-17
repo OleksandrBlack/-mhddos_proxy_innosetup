@@ -1,0 +1,21 @@
+name: release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update_container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the source code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: bash release.sh
+
+      - name: Publish
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: output/uaitarmy_installer.exe
