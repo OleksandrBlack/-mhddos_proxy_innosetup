@@ -17,6 +17,6 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_releases_tag: "latest"
-          prerelease: true
+          automatic_release_tag: "latest"
+          draft	: true
           files: output/uaitarmy_installer.exe
