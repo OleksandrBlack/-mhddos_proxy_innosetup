@@ -17,8 +17,9 @@
   SetDatablockOptimize ON
 
   ;Define name of the product
-  !define PRODUCT "uaitarmy_installer"
+  !define PRODUCT "Ukraine IT Army Installer"
   !define PRODUCT_VERSION "2.0.0"
+  !define INSTALLER_NAME "ukita_installer"
   !define UNINSTALLER_NAME "uninstall"
   
   BrandingText "${PRODUCT} ${PRODUCT_VERSION}"
@@ -52,12 +53,12 @@
   Name "${PRODUCT}"
 
   ;Define the directory where the installer should be saved
-  OutFile "output\${PRODUCT}.exe"
+  OutFile "output\${INSTALLER_NAME}.exe"
 
 
 
   # set to default here, override in .onInit if on 64bit
-  InstallDir "$APPDATA\${PRODUCT}"
+  InstallDir "$APPDATA\${INSTALLER_NAME}"
 
 
   ;Request rights if you want to install the program to program files
@@ -107,6 +108,10 @@
   !insertmacro MUI_PAGE_COMPONENTS # remove if you don't want to list components
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
+
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW ShowFinishCheckbox
+  !define MUI_PAGE_CUSTOMFUNCTION_LEAVE OpenFinishLink
+
   !insertmacro MUI_PAGE_FINISH
 
   ;For the uninstaller

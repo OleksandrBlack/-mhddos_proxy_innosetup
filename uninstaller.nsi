@@ -55,12 +55,3 @@ Section "Uninstall"
 
 SectionEnd
 
-;--------------------------------
-;After Installation Function
-
-Function .onInstSuccess
-
-  ;Open 'Thank you for installing' site or something else
-  ExecShell "open" "https://t.me/itarmyofukraine2022"
-
-FunctionEnd

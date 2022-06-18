@@ -12,4 +12,4 @@ wget -q -P requirements/distress/x86/ https://github.com/Yneth/distress-releases
 
 # Make build
 mkdir output
-makensis uaitarmy_installer.nsi
+makensis ukita_installer.nsi

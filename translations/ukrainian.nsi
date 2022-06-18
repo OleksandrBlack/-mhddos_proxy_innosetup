@@ -6,9 +6,6 @@ LangString inst_unist ${LANG_UKRAINIAN} "Видалення попередньо
 ;LangString inst_uninstall_question ${LANG_ENGLISH} "Current version will be uninstalled."
 LangString inst_uninstall_question ${LANG_UKRAINIAN} "Виявлено попередню інсталяцію, її буде видалено."
 
-;LangString inst_pf_req ${LANG_ENGLISH} "Proxy Finder (Help to find proxies for mhddos_proxy)"
-LangString inst_pf_req ${LANG_UKRAINIAN} "Шукач Проксі (Шукати проксі для mhddos_proxy)"
-
 LangString inf_title ${LANG_UKRAINIAN} "Перевірка залежностей"
 LangString inf_subtitle ${LANG_UKRAINIAN} "Прочитайте перед встановленням"
 LangString inf_button ${LANG_UKRAINIAN} "Завантажити"
